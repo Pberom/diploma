@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "DeleteAll";
+}
+
+<h2>DeleteAll</h2>
+
+<p>Внимание! Сейчас вы удалите все записи!</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}

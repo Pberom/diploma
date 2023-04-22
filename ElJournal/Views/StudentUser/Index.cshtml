@@ -1,0 +1,118 @@
+﻿@model IEnumerable<ElJournal.UserStudent>
+
+@{
+    ViewBag.Title = "Студенты";
+}
+
+<style>
+    .nav-link {
+        padding: 0;
+        color: black;
+    }
+
+    .try{
+        color:white;
+    }
+
+
+</style>
+
+<body class="d-flex h-100 text-center text-bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="mb-auto">
+            <div>
+                <h3 class="float-md-start mb-0">Электронный журнал</h3>
+                <nav class="nav nav-masthead justify-content-center float-md-end">
+                    @Html.Partial("_LoginPartial")
+                    <button type="button" class="btn btn-light m-lg-1 mb-1">
+                        <div class="try">@Html.ActionLink("Домашняя страница", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</div>
+                    </button>
+                    <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Информация", "About", "Home", new { area = "" }, new { @class = "nav-link" })</button>
+                    <button type="button" class="btn btn-light m-lg-1 mb-1"> @Html.ActionLink("Профиль", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })</button>
+                    <button type="button" class="btn btn-light m-lg-1 mb-1"><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></button>
+                </nav>
+            </div>
+        </header>
+
+        <h2>Студенты</h2>
+
+        <p>
+            <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Добавить студента в реестр", "Create", new { area = "" },  new { @class = "nav-link" })</button>
+            <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Назначить студента в группу", "NewGroup", new { area = "" }, new { @class = "nav-link" })</button>
+        </p>
+
+        <style>
+            .card-container {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+
+            .maincard {
+                margin-bottom: 20px;
+            }
+
+            card {
+                display: flex;
+                justify-content: space-between;
+                bottom: 10px;
+            }
+
+            .card-title {
+                color: black;
+            }
+
+            .card-text {
+                color: black;
+            }
+
+            .btn btn-dark{
+                color:white;
+            }
+
+
+            
+        </style>
+        <div class="row">
+            <section class="one" aria-labelledby="gettingStartedTitle">
+                <form asp-controller="StudentUser" asp-action="Index">
+                    <p>
+                        Поиск: <input type="text" name="SearchString" placeholder="Поиск..." />
+                        <input type="submit" value="Искать" />
+                    </p>
+                </form>
+            </section>
+            <section class="too" aria-labelledby="librariesTitle">
+                <div class="card-container">
+                    @foreach (var item in Model)
+                    {
+                        <div class="maincard">
+                            <div class="card" style="width: 18rem;">
+
+                                <div class="maxcard">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Данные студента</h5>
+                                        <p class="card-text">ФИО и почта. Для более подробных данных нажмите "детали".</p>
+                                    </div>
+                                    <ul class="list-group">
+                                        <li class="list-group-item">@Html.DisplayFor(modelItem => item.NameS)</li>
+                                        <li class="list-group-item">@Html.DisplayFor(modelItem => item.SecondS)</li>
+                                        <li class="list-group-item">@Html.DisplayFor(modelItem => item.MiddleS)</li>
+                                        <li class="list-group-item">@Html.DisplayFor(modelItem => item.Email)</li>
+                                    </ul>
+                                    <div class="card-body">
+                                        <button type="button" class="btn btn-dark">@Html.ActionLink("Редактировать", "Edit", new { id = item.IdUserStudents })</button>
+                                        <button type="button" class="btn btn-dark"> @Html.ActionLink("Детали", "Details", new { id = item.IdUserStudents })</button>
+                                        <button type="button" class="btn btn-dark">@Html.ActionLink("Удалить", "Delete", new { id = item.IdUserStudents })</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </section>
+        </div>
+       
+    </div>
+</body>

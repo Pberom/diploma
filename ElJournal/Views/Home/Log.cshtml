@@ -1,0 +1,81 @@
+﻿@model IEnumerable<ElJournal.Visitor>
+
+
+@{
+    ViewBag.Title = "Log";
+}
+
+<style>
+    .newitems {
+        color: white;
+    }
+
+    .nav-link {
+        padding: 0;
+        color: black;
+    }
+
+    .thinfo {
+        color: white;
+    }
+</style>
+
+<body class="d-flex h-100 text-center text-bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="mb-auto">
+            <div>
+                <h3 class="float-md-start mb-0">Электронный журнал</h3>
+                <nav class="nav nav-masthead justify-content-center float-md-end">
+                    @Html.Partial("_LoginPartial")
+                    <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Домашняя страница", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</button>
+                    <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Информация", "About", "Home", new { area = "" }, new { @class = "nav-link" })</button>
+                    <button type="button" class="btn btn-light m-lg-1 mb-1"> @Html.ActionLink("Профиль", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })</button>
+                    <button type="button" class="btn btn-light m-lg-1 mb-1"><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></button>
+                </nav>
+            </div>
+        </header>
+        <h2>Логирование действий пользователей на всех страницах</h2>
+        <h4>Стоит понимать, что сюда записываются все действия пользователей, которые они совершили. Ваши - тоже.</h4>
+        @using (Html.BeginForm())
+        {
+            <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Очистить лог записей", "DeleteAll", new { })</button>
+        }
+        <table class="table">
+            <tr>
+                <th class="thinfo">
+                    Адресс, откуда заходил пользователь
+                </th>
+                <th class="thinfo">
+                    Ссылка, с которой совершали действие
+                </th>
+                <th class="thinfo">
+                    Дата, на которую было совершено действие
+                </th>
+                <th class="thinfo">
+                    Кто совершил действие
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="thinfo">
+                        @Html.DisplayFor(modelItem => item.Ip)
+                    </td>
+                    <td class="thinfo">
+                        @Html.DisplayFor(modelItem => item.Url)
+                    </td>
+                    <td class="thinfo">
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td class="thinfo">
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                </tr>
+
+            }
+
+        </table>
+    </div>
+</body>

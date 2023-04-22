@@ -1,0 +1,55 @@
+﻿@model ElJournal.Group
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Удаление фрагмента группы</h2>
+
+<style>
+    .btn {
+        margin-bottom: 10px;
+    }
+
+    .col {
+        margin-bottom: 10px;
+    }
+</style>
+
+<body class="d-flex h-100 text-bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <h3>Вы уверены, что мы удаляем данный фрагмент?</h3>
+        <div>
+            <h4>Раздел групп</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    <p>Наименование группы</p>
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CodeGroup)
+                </dd>
+
+                <dt>
+                    <p>Наименование профессии</p>
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.NameGroup)
+                </dd>
+
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить безвозвратно" class="btn btn-danger" />
+            <button type="button" class="btn btn-light">@Html.ActionLink("Вернуться в список", "Index")</button>
+        </div>
+            }
+        </div>
+        </div>
+</body>

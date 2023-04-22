@@ -1,0 +1,127 @@
+﻿@model IEnumerable<ElJournal.Evaluation>
+
+@{
+    ViewBag.Title = "Mail";
+}
+
+<style>
+    .thcolor{
+        color:white;
+    }
+</style>
+
+<body class="d-flex h-100 text-center text-bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="mb-auto">
+            <div>
+                <h3 class="float-md-start mb-0">Электронный журнал</h3>
+                <nav class="nav nav-masthead justify-content-center float-md-end">
+                    @Html.Partial("_LoginPartial")
+                    <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Домашняя страница", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</button>
+                    <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Информация", "About", "Home", new { area = "" }, new { @class = "nav-link" })</button>
+                    <button type="button" class="btn btn-light m-lg-1 mb-1"> @Html.ActionLink("Профиль", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })</button>
+                    <button type="button" class="btn btn-light m-lg-1 mb-1"><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></button>
+                </nav>
+            </div>
+        </header>
+
+        <h2>Mail</h2>
+
+        <h2>Рассылка писем студентам</h2>
+
+        <div class="row">
+            <section class="col-md-4" aria-labelledby="gettingStartedTitle">
+                <form method="post" action="ProcessRequest">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <p>Почта студента, на которую высылаем оценки:</p>
+                        <div class="col-md-10">
+                            <select name="StudentId" id="select_storeId" class="nav-item">
+                                @foreach (var item2 in ViewBag.ListStudents)
+                                {
+                                    <option value="@item2.User.Email">@item2.User.Email</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        Details about your problem: <br />
+                        <textarea name="customerRequest" cols="45" rows="4"></textarea>
+                    </div>
+
+                    <div>
+                        <input type="submit" value="Submit" />
+                    </div>
+                </form>
+            </section>
+            <section class="col-md-4" aria-labelledby="librariesTitle">
+
+                <table class="table">
+                    <tr>
+                        <th class="thcolor">
+                            Фамилия
+                        </th>
+                        <th class="thcolor">
+                            Имя
+                        </th>
+                        <th class="thcolor">
+                            Группа студента
+                        </th>
+                        <th class="thcolor">
+                            Почта
+                        </th>
+                        <th class="thcolor">
+                            Оценка
+                        </th>
+                        <th class="thcolor">
+                            Наименование предмета
+                        </th>
+
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="thcolor">
+                                @Html.DisplayFor(modelItem => item.Student.User.SecondS)
+                            </td>
+                            <td class="thcolor">
+                                @Html.DisplayFor(modelItem => item.Student.User.NameS)
+                            </td>
+                            <td class="thcolor">
+                                @Html.DisplayFor(modelItem => item.Student.Group.CodeGroup)
+                            </td>
+                            <td class="thcolor">
+                                @Html.DisplayFor(modelItem => item.Student.User.Email)
+
+                            </td>
+                            <td class="thcolor">
+                                @Html.DisplayFor(modelItem => item.Evaluation1)
+                            </td>
+                            <td class="thcolor">
+                                @Html.DisplayFor(modelItem => item.CodeProfessorItem.Item.NameItem1)
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </section>
+        </div>
+
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+
+        @section Scripts{
+            <script type="text/javascript">
+                $(function () {
+                    $("#select_storeId").chosen();
+                });
+            </script>
+        }
+    </div>
+</body>

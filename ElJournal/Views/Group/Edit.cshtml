@@ -1,0 +1,63 @@
+﻿@model ElJournal.Group
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<style>
+    .btn {
+        margin-bottom: 10px;
+    }
+
+    .col {
+        margin-bottom: 10px;
+    }
+</style>
+
+<h2>Редактирование группы</h2>
+
+<body class="d-flex h-100 text-bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Group</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+
+            <div class="form-group">
+                <p>Наименование группы</p>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CodeGroup, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CodeGroup, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <p>Наименование профессии</p>
+                <div class="col col-md-10">
+                    @Html.EditorFor(model => model.NameGroup, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NameGroup, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Сохранить изменения" class="btn btn-light" />
+                    </div>
+                </div>
+            </div>
+        }
+
+    <div>
+        <button type="button" class="btn btn-light">@Html.ActionLink("Вернуться в список", "Index")</button>
+    </div>
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+        </div>
+    </body>

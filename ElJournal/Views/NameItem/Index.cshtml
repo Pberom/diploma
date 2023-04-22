@@ -1,0 +1,89 @@
+﻿@model IEnumerable<ElJournal.NameItem>
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    .newitems{
+        color:white;
+    }
+
+    .nav-link {
+        padding: 0;
+        color: black;
+    }
+</style>
+
+<body class="d-flex h-100 text-center text-bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="mb-auto">
+            <div>
+                <h3 class="float-md-start mb-0">Электронный журнал</h3>
+                <nav class="nav nav-masthead justify-content-center float-md-end">
+                    @Html.Partial("_LoginPartial")
+                    <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Домашняя страница", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</button>
+                    <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Информация", "About", "Home", new { area = "" }, new { @class = "nav-link" })</button>
+                    <button type="button" class="btn btn-light m-lg-1 mb-1"> @Html.ActionLink("Профиль", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })</button>
+                    <button type="button" class="btn btn-light m-lg-1 mb-1"><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></button>
+                </nav>
+            </div>
+        </header>
+
+        <h2>Предметы</h2>
+
+        <style>
+            .card-container {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+
+            .maincard {
+                margin-bottom: 20px;
+            }
+
+            card {
+                display: flex;
+                justify-content: space-between;
+                bottom: 10px;
+            }
+
+            .card-title {
+                color: black;
+            }
+
+            .card-text {
+                color: black;
+            }
+
+            .items {
+                color: white;
+            }
+</style>
+
+        <p>
+            <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Добавить дисциплину", "Create", new { area = "" }, new { @class = "nav-link" })</button>
+        </p>
+        <table class="table">
+            <tr>
+                <th class="items">
+                    Наименование дисциплины
+                </th>
+                <th></th>
+            </tr>
+            <div class="card-container">
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td class="items">
+                        @Html.DisplayFor(modelItem => item.NameItem1)
+                    </td>
+                    <td class="items">
+                        <button type="button" class="btn btn-light">@Html.ActionLink("Редактировать", "Edit", new { id = item.Id })</button>
+                        <button type="button" class="btn btn-light">@Html.ActionLink("Удалить", "Delete", new { id = item.Id })</button>
+                    </td>
+                </tr>
+            }
+            </table>
+        </div>
+    </body>

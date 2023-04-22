@@ -1,0 +1,63 @@
+﻿@model ElJournal.Group
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<style>
+    .btn{
+        margin-bottom: 10px;
+    }
+
+    .col {
+        margin-bottom: 10px;
+    }
+</style>
+
+<h2>Создание группы</h2>
+
+<body class="d-flex h-100 text-bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>После добавления данная группа появится в списке.</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @*@Html.LabelFor(model => model.CodeGroup, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    <p>Наименование группы</p>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CodeGroup, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CodeGroup, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @*@Html.LabelFor(model => model.NameGroup, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    <p>Наименование профессии</p>
+                    <div class="col col-md-10">
+                        @Html.EditorFor(model => model.NameGroup, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NameGroup, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Создать группу" class="btn btn-light" />
+                    </div>
+                </div>
+            </div>
+        }
+
+    <div>
+        <button type="button" class="btn btn-light">@Html.ActionLink("Вернуться в список", "Index")</button>
+    </div>
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+        </div>
+</body>

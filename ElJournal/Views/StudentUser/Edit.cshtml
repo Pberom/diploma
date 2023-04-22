@@ -1,0 +1,93 @@
+﻿@model ElJournal.UserStudent
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<style>
+    .btn {
+        margin-bottom: 10px;
+    }
+
+    .col {
+        margin-bottom: 10px;
+    }
+</style>
+
+<h2>Редактирование студента</h2>
+
+<body class="d-flex h-100 text-bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Студенты</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.IdUserStudents)
+
+                <div class="form-group">
+                    @*@Html.LabelFor(model => model.NameS, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    <p>Имя студента</p>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NameS, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NameS, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @*@Html.LabelFor(model => model.SecondS, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    <p>Фамилия студента</p>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.SecondS, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SecondS, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @*@Html.LabelFor(model => model.MiddleS, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    <p>Отчество (при наличии)</p>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.MiddleS, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MiddleS, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @*@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    <p>Почта студента (куда будут высылаться любая информация)</p>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @*@Html.LabelFor(model => model.OtherEmail, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    <p>Дополнительная почта</p>
+                    <div class="col col-md-10">
+                        @Html.EditorFor(model => model.OtherEmail, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.OtherEmail, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Сохранить изменения" class="btn btn-light" />
+                    </div>
+                </div>
+            </div>
+        }
+
+    <div>
+        <button type="button" class="btn btn-light">@Html.ActionLink("Вернуться в список", "Index")</button>
+    </div>
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+        </div>
+    </body>
