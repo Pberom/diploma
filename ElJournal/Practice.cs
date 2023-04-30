@@ -7,21 +7,19 @@ using System.Collections.Generic;
 
 namespace ElJournal
 {
-    public partial class Students
+    public partial class Practice
     {
-        public Students()
+        public Practice()
         {
             Commentary = new HashSet<Commentary>();
-            Evaluation = new HashSet<Evaluation>();
         }
 
-        public int Id { get; set; }
-        public int? UserId { get; set; }
-        public int? GroupId { get; set; }
+        public int IdPractice { get; set; }
+        public string NumberPractice { get; set; }
+        public string NamePractice { get; set; }
+        public string DatePlacePractice { get; set; }
+        public string FioprepodPractic { get; set; }
 
-        public virtual Group Group { get; set; }
-        public virtual UserStudent User { get; set; }
         public virtual ICollection<Commentary> Commentary { get; set; }
-        public virtual ICollection<Evaluation> Evaluation { get; set; }
     }
 }

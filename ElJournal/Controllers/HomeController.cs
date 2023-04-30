@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace ElJournal.Controllers
 {
@@ -36,28 +37,38 @@ namespace ElJournal.Controllers
             return View();
         }
 
-        public ActionResult Log()
+        public ActionResult ErrorPage()
         {
-            foreach (var role in context.AspNetRoles)
-            {
-                //if (role.RoleId == 1)
-                //{
-                var visitors = new List<Visitor>();
-                using (ElJournalContext db = new ElJournalContext())
-                {
-                    visitors = db.Visitor.ToList();
-                }
-                return View(visitors.ToList());
-                //}
-                //else
-                //    return Redirect("~/ErrorPage");
-                //}
-                //return Redirect("~/ErrorPage");
-            }
-            return Redirect("~/ErrorPage");
+            return View();
         }
 
-        public ActionResult DeleteAll()
+        public ActionResult Log()
+        {
+            if (User.Identity.GetUserName() == "lulakushka@gmail.com")
+            {
+                foreach (var role in context.AspNetRoles)
+                {
+                    //if (role.RoleId == 1)
+                    //{
+                    var visitors = new List<Visitor>();
+                    using (ElJournalContext db = new ElJournalContext())
+                    {
+                        visitors = db.Visitor.ToList();
+                    }
+                    return View(visitors.ToList());
+                    //}
+                    //else
+                    //    return Redirect("~/ErrorPage");
+                    //}
+                    //return Redirect("~/ErrorPage");
+                }
+                return Redirect("~/Home/ErrorPage");
+            }
+            else
+            return Redirect("~/Home/ErrorPage");
+        }
+
+            public ActionResult DeleteAll()
         {
             context.Visitor.RemoveRange(context.Visitor);
             context.SaveChanges();

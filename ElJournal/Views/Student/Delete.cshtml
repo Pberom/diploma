@@ -1,43 +1,35 @@
 ﻿@model ElJournal.Students
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Удаление";
 }
 
-<h2>Delete</h2>
+<h2>Удаление студента</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>ProfessorsItem</h4>
-    <hr />
-    <dl class="dl-horizontal">
-
-
-        <dt>
-            @Html.DisplayNameFor(model => model.User.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Group.CodeGroup)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Group.CodeGroup)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+<style>
+    .btn {
+        margin-bottom: 10px;
     }
-</div>
+
+    .col {
+        margin-bottom: 10px;
+    }
+</style>
+
+<body class="d-flex h-100 text-bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <h3>Вы уверены, что хотите удалить данного студента?</h3>
+        <div>
+            <h4>Он будет удалён без возможности восстановления.</h4>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Удалить безвозвратно" class="btn btn-danger" />
+                    <button type="button" class="btn btn-light">@Html.ActionLink("Вернуться в список", "Index")</button>
+                </div>
+            }
+        </div>
+    </div>
+</body>

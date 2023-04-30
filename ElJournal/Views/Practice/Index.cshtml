@@ -1,9 +1,5 @@
-﻿@model IEnumerable<ElJournal.Group>
+﻿@model IEnumerable<ElJournal.Practice>
 @using Microsoft.AspNet.Identity
-
-@{
-    ViewBag.Title = "Index";
-}
 
 <style>
     .newitems {
@@ -13,6 +9,20 @@
     .nav-link {
         padding: 0;
         color: black;
+    }
+
+    .card {
+        color: white;
+        background-color: #343a40;
+    }
+
+    .card-body {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .btn {
+        margin-bottom: 30px;
     }
 </style>
 
@@ -35,45 +45,28 @@
                 </nav>
             </div>
         </header>
-
-        <h2>Создание группы</h2>
-        <p>
-            <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Добавить группу", "Create", new { area = "" }, new { @class = "nav-link" })</button>
-        </p>
-        <form asp-controller="StudentUser" asp-action="Index">
-            <p>
-                Поиск: <input type="text" name="SearchString" placeholder="Поиск..." />
-                <input type="submit" value="Искать" />
-            </p>
-        </form>
-        <table class="table">
-            <tr>
-                <th class="newitems">
-                    Наименование группы
-                </th>
-                <th class="newitems">
-                    Наименование профессии
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td class="newitems">
-                        @Html.DisplayFor(modelItem => item.CodeGroup)
-                    </td>
-                    <td class="newitems">
-                        @Html.DisplayFor(modelItem => item.NameGroup)
-                    </td>
-                    <td class="newitems">
-                        <button type="button" class="btn btn-light">@Html.ActionLink("Редактировать", "Edit", new { id = item.Id })</button>
-                        <button type="button" class="btn btn-light">@Html.ActionLink("Удалить", "Delete", new { id = item.Id })</button>
-                    </td>
-                </tr>
-            }
-        </table>
-    </div>
-</body>
+        @foreach (var item in Model)
+        {
+            <div class="card">
+                <div class="card-header">
+                    @Html.DisplayFor(modelItem => item.NamePractice)
+                </div>
+                <div class="card-body">
+                    <section>
+                        <h4>Номер практики</h4>
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.NumberPractice)</h5>
+                    </section>
+                    <section>
+                        <h4>ФИО принимающего преподователя</h4>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.FioprepodPractic)</p>
+                    </section>
+                    <section>
+                        <h4>Дата и место практики</h4>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.DatePlacePractice)</p>
+                    </section>
+                </div>
+                <section><a href="#" class="btn btn-light">Выслать на почту</a></section>
+            </div>
+        }
     </div>
 </body>

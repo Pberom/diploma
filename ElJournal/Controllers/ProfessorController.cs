@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace ElJournal.Controllers
@@ -12,9 +13,16 @@ namespace ElJournal.Controllers
     {
         // GET: Professor
         private ElJournalContext context = new ElJournalContext();
-        public ActionResult Index()
+        public async Task<ActionResult> Index(string searchString, ElJournalContext context1)
         {
-            return View(context.Professor.ToList());
+            var searchSpace = from m in context1.Professor
+                              select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                searchSpace = searchSpace.Where(s => s.F.Contains(searchString) || s.I.Contains(searchString));
+            }
+            return View(await searchSpace.ToListAsync());
         }
 
         public ActionResult NewProfItems()

@@ -3,30 +3,39 @@
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
         <style>
-            .visibil{
-                visibility:hidden;
-            }
-        </style>
+                .visibil{
+                    visibility:hidden;
+                }
+            </style>
 
-    <div class="visibil">
-    <ul class="navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Здравствуйте " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
-        </li>
-        <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
-    </ul>
-    </div>
+        <div class="visibil">
+            <ul class="navbar-nav navbar-right">
+                <li>
+                    @Html.ActionLink("Здравствуйте " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link", id = User.Identity.GetUserName(), name = "StudentId" })
+                </li>
+                <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
+            </ul>
+        </div>
     }
-    }
-    else
-    {
+}
+else
+{
     <div class="visibil">
         <ul class="navbar-nav navbar-right">
             <li>@Html.ActionLink("Регистрация", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "nav-link" })</li>
             <li>@Html.ActionLink("Выполнить вход", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link" })</li>
         </ul>
     </div>
-    }
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+                $(function () {
+                    $("#select_storeId").chosen();
+                });
+    </script>
+}

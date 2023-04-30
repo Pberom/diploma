@@ -17,20 +17,6 @@ namespace ElJournal.Controllers
             return View(user.ToList());
         }
 
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    ProfessorsItem user = context.ProfessorsItem.Find(id);
-        //    if (user == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(user);
-        //}
-
         public ActionResult Create()
         {
             ViewBag.ProfessorId = new SelectList(context.Professor, "Id", "F");

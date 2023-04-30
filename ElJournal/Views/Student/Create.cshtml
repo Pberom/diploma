@@ -1,61 +1,67 @@
-﻿@model ElJournal.Students
+﻿@model ElJournal.Students 
 
 @{
     ViewBag.Title = "Create";
 }
 
+<style>
+    .btn {
+        margin-bottom: 10px;
+    }
 
+    .col {
+        margin-bottom: 10px;
+    }
+</style>
+
+
+<h2>Создать зависимость студента и группы</h2>
 
 <body class="d-flex h-100 text-bg-dark">
-    <div class="flex-column">
-        <header class="mb-auto">
-        </header>
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <section>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>Назначение студента в группу</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-        <h2>Создать зависимость студента и группы</h2>
+                    <div class="form-group">
+                        @*@Html.LabelFor(model => model.ProfessorId, "ProfessorId", htmlAttributes: new { @class = "control-label col-md-2" })*@
+                        <div class="col-md-10">
+                            @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                            <p>Почта студента</p>
+                        </div>
+                    </div>
 
+                    <div class="form-group">
+                        @*@Html.LabelFor(model => model.GroupId, "GroupId", htmlAttributes: new { @class = "control-label col-md-2" })*@
+                        <div class="col-md-10">
+                            @Html.DropDownList("GroupId", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.GroupId, "", new { @class = "text-danger" })
+                        </div>
+                        <p>Группа</p>
+                    </div>
 
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-
-            <div class="form-horizontal">
-                <h4>Назначение студента в группу</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-
-                <div class="form-group">
-                    @*@Html.LabelFor(model => model.UserId, "UserId", htmlAttributes: new { @class = "control-label col-md-2" })*@
-                    <p>Почта студента</p>
-                    <div class="col-md-10">
-                        @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Создать зависимость" class="btn btn-light" />
+                        </div>
                     </div>
                 </div>
+            }
 
-                <div class="form-group">
-                    @*@Html.LabelFor(model => model.GroupId, "GroupId", htmlAttributes: new { @class = "control-label col-md-2" })*@
-                    <p>Группа</p>
-                    <div class="col-md-10">
-                        @Html.DropDownList("GroupId", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.GroupId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
-                    </div>
-                </div>
+            <div>
+                <button type="button" class="btn btn-light">@Html.ActionLink("Вернуться в список", "Index")</button>
             </div>
-        }
+        </section>
 
-        <div>
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-
-        @section Scripts {
+        @*@section Scripts {
             @Scripts.Render("~/bundles/jqueryval")
             <script type="text/javascript">
                 $(function () {
@@ -67,7 +73,11 @@
                 $(function () {
                     $("#GroupId").chosen();
                 });
-            </script>       
+            </script>
+        }*@
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
         }
-        </div>
+    </div>
 </body>

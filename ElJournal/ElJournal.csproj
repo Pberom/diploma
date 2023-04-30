@@ -475,6 +475,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Academ.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -485,6 +486,8 @@
     <Compile Include="AspNetUserLogins.cs" />
     <Compile Include="AspNetUserRoles.cs" />
     <Compile Include="AspNetUsers.cs" />
+    <Compile Include="Commentary.cs" />
+    <Compile Include="Controllers\AcademController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AspNetRolesController.cs" />
     <Compile Include="Controllers\EvaluationsController.cs" />
@@ -492,9 +495,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NameItemController.cs" />
+    <Compile Include="Controllers\PracticeController.cs" />
     <Compile Include="Controllers\ProfessorController.cs" />
     <Compile Include="Controllers\ProfItemsController.cs" />
-    <Compile Include="Controllers\RetakesController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\StudentUserController.cs" />
     <Compile Include="ElJournalContext.cs" />
@@ -505,13 +508,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Group.cs" />
-    <Compile Include="HtmlHelper.cs" />
     <Compile Include="MigrationHistory.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AddMoreViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="NameItem.cs" />
+    <Compile Include="Practice.cs" />
     <Compile Include="Professor.cs" />
     <Compile Include="ProfessorsItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -544,6 +546,7 @@
     <Content Include="Content\chosen-sprite.png" />
     <Content Include="Content\css\select2.css" />
     <Content Include="Content\css\select2.min.css" />
+    <Content Include="Content\free-icon-open-book-166088.png" />
     <Content Include="Content\jquery.datetimepicker.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -720,8 +723,11 @@
     <Content Include="Views\Evaluations\DeleteAll.cshtml" />
     <Content Include="Views\Home\Log.cshtml" />
     <Content Include="Views\Home\ErrorPage.cshtml" />
-    <Content Include="Views\Retakes\AddMorePartialView.cshtml" />
-    <Content Include="Views\Retakes\MainView.cshtml" />
+    <Content Include="Views\Practice\Index.cshtml" />
+    <Content Include="Views\Academ\Index.cshtml" />
+    <Content Include="Views\Academ\ErrorPage.cshtml" />
+    <Content Include="Views\Practice\ErrorPage.cshtml" />
+    <Content Include="Views\Practice\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

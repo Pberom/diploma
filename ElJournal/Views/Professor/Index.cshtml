@@ -1,15 +1,40 @@
 ﻿@model IEnumerable<ElJournal.Professor>
+@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Index";
 }
 
 <style>
-    .newitems{
-        color:white;
+    .newitems {
+        color: white;
     }
 
     .nav-link {
         padding: 0;
+        color: black;
+    }
+
+    .card-container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .maincard {
+        margin-bottom: 20px;
+    }
+
+    card {
+        display: flex;
+        justify-content: space-between;
+        bottom: 10px;
+    }
+
+    .card-title {
+        color: black;
+    }
+
+    .card-text {
         color: black;
     }
 </style>
@@ -18,12 +43,17 @@
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="mb-auto">
             <div>
-                <h3 class="float-md-start mb-0">Электронный журнал</h3>
+                <h3 class="float-md-start mb-0">Журнал информации</h3>
                 <nav class="nav nav-masthead justify-content-center float-md-end">
                     @Html.Partial("_LoginPartial")
                     <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Домашняя страница", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</button>
                     <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Информация", "About", "Home", new { area = "" }, new { @class = "nav-link" })</button>
                     <button type="button" class="btn btn-light m-lg-1 mb-1"> @Html.ActionLink("Профиль", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })</button>
+                    @if (User.Identity.GetUserName() == "lulakushka@gmail.com")
+                    {
+                        <button type="button" class="btn btn-light m-lg-1 mb-1"> @Html.ActionLink("Лог действий", "Log", "Home", routeValues: null, htmlAttributes: new { title = "", @class = "nav-link" })</button>
+                    }
+                    else { }
                     <button type="button" class="btn btn-light m-lg-1 mb-1"><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></button>
                 </nav>
             </div>
@@ -35,59 +65,45 @@
             <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Добавить педагога", "Create", new { area = "" }, new { @class = "nav-link" })</button>
             <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Назначить педагога на дисциплину", "NewProfItems", new { area = "" }, new { @class = "nav-link" })</button>
 
-            
+
         </p>
+        <div class="row">
+            <section class="one" aria-labelledby="gettingStartedTitle">
+                <form asp-controller="StudentUser" asp-action="Index">
+                    <p>
+                        Поиск: <input type="text" name="SearchString" placeholder="Поиск..." />
+                        <input type="submit" value="Искать" />
+                    </p>
+                </form>
+            </section>
+            </div>
 
-        <style>
-            .card-container {
-                display: flex;
-                justify-content: space-between;
-                flex-wrap: wrap;
-            }
+            <div class="card-container">
 
-            .maincard {
-                margin-bottom: 20px;
-            }
+                @foreach (var item in Model)
+                {
+                    <div class="maincard">
+                        <div class="card" style="width: 18rem;">
 
-            card {
-                display: flex;
-                justify-content: space-between;
-                bottom: 10px;
-            }
-
-            .card-title {
-                color: black;
-            }
-
-            .card-text {
-                color: black;
-            }
-        </style>
-        <div class="card-container">
-
-            @foreach (var item in Model)
-            {
-                <div class="maincard">
-                    <div class="card" style="width: 18rem;">
-
-                        <div class="maxcard">
-                            <div class="card-body">
-                                <h5 class="card-title">Данные педагогов</h5>
-                                <p class="card-text">Фамилия, имя, отчество педагога.</p>
+                            <div class="maxcard">
+                                <div class="card-body">
+                                    <h5 class="card-title">Данные педагогов</h5>
+                                    <p class="card-text">Фамилия, имя, отчество педагога.</p>
+                                </div>
+                                <ul class="list-group">
+                                    <li class="list-group-item"> @Html.DisplayFor(modelItem => item.F)</li>
+                                    <li class="list-group-item"> @Html.DisplayFor(modelItem => item.I)</li>
+                                    <li class="list-group-item">  @Html.DisplayFor(modelItem => item.O)</li>
+                                </ul>
+                                <div class="card-body">
+                                    <button type="button" class="btn btn-black">@Html.ActionLink("Редактировать", "Edit", new { id = item.Id })</button>
+                                    <button type="button" class="btn btn-black">@Html.ActionLink("Удалить", "Delete", new { id = item.Id })</button>
+                                </div>
                             </div>
-                            <ul class="list-group">
-                                <li class="list-group-item"> @Html.DisplayFor(modelItem => item.F)</li>
-                                <li class="list-group-item"> @Html.DisplayFor(modelItem => item.I)</li>
-                                <li class="list-group-item">  @Html.DisplayFor(modelItem => item.O)</li>
-                            </ul>
-                            <div class="card-body">
-                                <button type="button" class="btn btn-black">@Html.ActionLink("Редактировать", "Edit", new { id = item.Id })</button>
-                                <button type="button" class="btn btn-black">@Html.ActionLink("Удалить", "Delete", new { id = item.Id })</button>
-                            </div>
+
                         </div>
-
                     </div>
-                </div>
-            }
+                }
+            </div>
         </div>
 </body>

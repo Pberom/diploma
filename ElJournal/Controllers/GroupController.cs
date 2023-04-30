@@ -27,27 +27,16 @@ namespace ElJournal.Controllers
             return View(await movies.ToListAsync());
         }
 
-        // GET: Groups/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Group groups = context.Group.Find(id);
-            if (groups == null)
-            {
-                return HttpNotFound();
-            }
-            return View(groups);
-        }
-
         // GET: Groups/Create
         public ActionResult Create()
         {
             return View();
         }
-        
+
+        public ActionResult ErrorPage()
+        {
+            return View();
+        }
 
         // POST: Groups/Create
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
@@ -58,14 +47,17 @@ namespace ElJournal.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                if ((groups.CodeGroup != null) && (groups.NameGroup != null))
                 {
-                    context.Group.Add(groups);
-                    context.SaveChanges();
-                    return RedirectToAction("Index");
+                    if (ModelState.IsValid)
+                    {
+                        context.Group.Add(groups);
+                        context.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    else return View(groups);
                 }
-
-                return View(groups);
+                else return Redirect("~/Professor/ErrorPage");
             }
             catch (Exception)
             {
@@ -107,13 +99,17 @@ namespace ElJournal.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                if ((groups.CodeGroup != null) && (groups.NameGroup != null))
                 {
-                    context.Entry(groups).State = EntityState.Modified;
-                    context.SaveChanges();
-                    return RedirectToAction("Index");
+                    if (ModelState.IsValid)
+                    {
+                        context.Entry(groups).State = EntityState.Modified;
+                        context.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    return View(groups);
                 }
-                return View(groups);
+                return Redirect("~/Professor/ErrorPage");
             }
             catch (Exception)
             {
@@ -122,10 +118,7 @@ namespace ElJournal.Controllers
           
         }
 
-        public ActionResult ErrorPage()
-        {
-            return View();
-        }
+
 
         // GET: Groups/Delete/5
         public ActionResult Delete(int? id)

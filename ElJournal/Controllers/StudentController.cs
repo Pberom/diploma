@@ -1,6 +1,7 @@
 ﻿using ElJournal.Filter;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -81,8 +82,8 @@ namespace ElJournal.Controllers
                 {
                     return HttpNotFound();
                 }
-                ViewBag.UserId = new SelectList(context.AspNetUsers, "Id", "Email", user.UserId);
-                ViewBag.GroupId = new SelectList(context.Group, "Id", "CodeGroup", user.GroupId);
+                ViewBag.UserId = new SelectList(context.UserStudent, "IdUserStudents", "Email");
+                ViewBag.GroupId = new SelectList(context.Group, "Id", "CodeGroup");
                 return View(user);
             }
             catch (Exception)
@@ -96,6 +97,8 @@ namespace ElJournal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,UserId,GroupId")] Students user)
         {
+            ViewBag.UserId = new SelectList(context.UserStudent, "IdUserStudents", "Email", user.UserId);
+            ViewBag.GroupId = new SelectList(context.Group, "Id", "CodeGroup", user.GroupId);
             try
             {
                 if (ModelState.IsValid)
@@ -104,8 +107,6 @@ namespace ElJournal.Controllers
                     context.SaveChanges();
                     return RedirectToAction("Index");
                 }
-                ViewBag.UserId = new SelectList(context.AspNetUsers, "Id", "Email", user.UserId);
-                ViewBag.GroupId = new SelectList(context.Group, "Id", "CodeGroup", user.GroupId);
                 return View(user);
             }
             catch (Exception)
@@ -134,10 +135,17 @@ namespace ElJournal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Students user = context.Students.Find(id);
-            context.Students.Remove(user);
-            context.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                Students user = context.Students.Find(id);
+                context.Students.Remove(user);
+                context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                return Redirect("~/Professor/ErrorPage");
+            }
         }
 
         protected override void Dispose(bool disposing)

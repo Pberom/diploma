@@ -1,0 +1,88 @@
+﻿@model IEnumerable<ElJournal.Academ>
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    .newitems {
+        color: white;
+    }
+
+    .nav-link {
+        padding: 0;
+        color: black;
+    }
+
+    .card {
+        color: white;
+        background-color: #343a40;
+    }
+
+    .card-body {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .btn {
+        margin-bottom: 30px;
+    }
+</style>
+
+
+<body class="d-flex h-100 text-center text-bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="mb-auto">
+            <div>
+                <h3 class="float-md-start mb-0">Журнал информации</h3>
+                <nav class="nav nav-masthead justify-content-center float-md-end">
+                    @Html.Partial("_LoginPartial")
+                    <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Домашняя страница", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</button>
+                    <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Информация", "About", "Home", new { area = "" }, new { @class = "nav-link" })</button>
+                    <button type="button" class="btn btn-light m-lg-1 mb-1"> @Html.ActionLink("Профиль", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })</button>
+                    @if (User.Identity.GetUserName() == "lulakushka@gmail.com")
+                    {
+                        <button type="button" class="btn btn-light m-lg-1 mb-1"> @Html.ActionLink("Лог действий", "Log", "Home", routeValues: null, htmlAttributes: new { title = "", @class = "nav-link" })</button>
+                    }
+                    else { }
+                    <button type="button" class="btn btn-light m-lg-1 mb-1"><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></button>
+                </nav>
+            </div>
+        </header>
+        @foreach (var item in Model)
+        {
+            <div class="card">
+                <div class="card-header">
+                    График ликвидации академической задолженности
+                </div>
+                <div class="card-body">
+                    <section>
+                        <h5>Номер</h5>
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.NumberAcadem)</h5>
+                    </section>
+                    <section>
+                        <h5>Форма контроля</h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.FormControlAcadem)</p>
+                    </section>
+                    <section>
+                        <h5>ФИО преподователя</h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.FioprepodAcadem)</p>
+                    </section>
+                    <section>
+                        <h5>Дата</h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.DateAcadem)</p>
+                    </section>
+                    <section>
+                        <h5>Время</h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.TimeAcadem)</p>
+                    </section>
+                    <section>
+                        <h5>Место проведения</h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.TerraAcadem)</p>
+                    </section>
+                </div>
+                <section><a href="#" class="btn btn-light">Выслать на почту</a></section>
+            </div>
+        }
+    </div>
+</body>

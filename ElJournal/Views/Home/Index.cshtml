@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<ElJournal.AspNetRoles>
 
+@using Microsoft.AspNet.Identity
+
 <!doctype html>
 <html lang="en" class="h-100">
 <head>
@@ -101,23 +103,17 @@
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="mb-auto">
             <div>
-                <h3 class="float-md-start mb-0">Электронный журнал</h3>
+                <h3 class="float-md-start mb-0">Журнал информации</h3>
                 <nav class="nav nav-masthead justify-content-center float-md-end">
                     @Html.Partial("_LoginPartial")
                     <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Домашняя страница", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</button>
                     <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Информация", "About", "Home", new { area = "" }, new { @class = "nav-link" })</button>
                     <button type="button" class="btn btn-light m-lg-1 mb-1"> @Html.ActionLink("Профиль", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })</button>
-                    @foreach (var item in Model)
+                    @if (User.Identity.GetUserName() == "lulakushka@gmail.com")
                     {
-                        if (item.Id == 1)
-                        {
-                            <button type="button" class="btn btn-light m-lg-1 mb-1"> @Html.ActionLink("Лог действий", "Log", "Home", routeValues: null, htmlAttributes: new { title = "", @class = "nav-link" })</button>
-                        }
-                        else
-                        {
-                            <button type="button" hidden="hidden" class="btn btn-light m-lg-1 mb-1"> @Html.ActionLink("Лог действий", "Log", "Home", routeValues: null, htmlAttributes: new { title = "", @class = "nav-link" })</button>
-                        }
+                        <button type="button" class="btn btn-light m-lg-1 mb-1"> @Html.ActionLink("Лог действий", "Log", "Home", routeValues: null, htmlAttributes: new { title = "", @class = "nav-link" })</button>
                     }
+                    else { }
                     <button type="button" class="btn btn-light m-lg-1 mb-1"><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></button>
                 </nav>
             </div>
@@ -174,25 +170,63 @@
                             Оценки можно высылать ученикам на почту. Подробнее смотри раздел "Оценки".
                         </p>
                     </section>
-
-                    @foreach (var item in Model)
+                    @if (User.Identity.GetUserName() == "lulakushka@gmail.com")
                     {
-                        if (item.Id == 1)
-                        {
-                            <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-                                <h2 id="gettingStartedTitle"></h2>
-                                <button type="button" class="btn btn-light m-lg-1 mb-1"> @Html.ActionLink("Регистрация педагога-организатора", "Register", "Account", routeValues: null, htmlAttributes: new { title = "", @class = "nav-link" })</button>
-                                <p>
-                                    Вы можете зарегестрировать обычного пользователя, который не будет видеть часть 
-                                    функционала. Например, эту функцию видит только главный педагог-организатор.
-                                </p>
-                            </section>                          
-                        }
-                        else
-                        {
-                           //Пустая строка
-                        }
+                        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
+                            <h2 id="gettingStartedTitle"></h2>
+                            <button type="button" class="btn btn-light m-lg-1 mb-1"> @Html.ActionLink("Регистрация педагога-организатора", "Register", "Account", routeValues: null, htmlAttributes: new { title = "", @class = "nav-link" })</button>
+                            <p>
+                                Вы можете зарегестрировать обычного пользователя, который не будет видеть часть
+                                функционала. Например, эту функцию видит только главный педагог-организатор.
+                            </p>
+                        </section>
+
+                        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
+                            <button type="button" class="btn btn-light">@Html.ActionLink("Лог действий", "Log", "Home", routeValues: null, htmlAttributes: new { title = "", @class = "nav-link" })</button>
+                            <p>
+                                Это страница, в которую записываются все действия на сайте.
+                            </p>
+                        </section>
                     }
+                    else
+                    {
+
+                    }
+
+                    <section class="col-md-4" aria-labelledby="gettingStartedTitle">
+                        <button type="button" class="btn btn-light">@Html.ActionLink("Информация", "About", "Home", routeValues: null, htmlAttributes: new { title = "", @class = "nav-link" })</button>
+                        <p>
+                            Это страница, которая позволяет связаться с автором приложения, узнать правила конфиденциальности. Отказаться от их использования можно, удалив свою страницу.
+                        </p>
+                    </section>
+
+                    <section class="col-md-4" aria-labelledby="gettingStartedTitle">
+                        <h2 id="gettingStartedTitle"></h2>
+                        <button type="button" class="btn btn-light">@Html.ActionLink("Пересдача УП", "Index", "Practice", new { area = "" }, new { @class = "nav-link" })</button>
+                        <p>
+                            Страница, на которой находятся пересдачи студентов. С помощью этой страницы
+                            ученику можно выслать график его пересдач по УП.
+                        </p>
+                    </section>
+
+                    <section class="col-md-4" aria-labelledby="gettingStartedTitle">
+                        <h2 id="gettingStartedTitle"></h2>
+                        <button type="button" class="btn btn-light">@Html.ActionLink("Академические задолженности", "Index", "Academ", new { area = "" }, new { @class = "nav-link" })</button>
+                        <p>
+                            Страница, на которой находятся академические задолженности студентов. С помощью этой страницы
+                            ученику можно выслать график всех пересдач в сумме. Отличается более полной и обширной информацией.
+                        </p>
+                        <h2 id="gettingStartedTitle"></h2>
+                    </section>
+
+                    <section class="col-md-4" aria-labelledby="gettingStartedTitle">
+                        <h2 id="gettingStartedTitle"></h2>
+                        <button type="button" class="btn btn-light">@Html.ActionLink("Профиль", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })</button>
+                        <p>
+                            Страница профиля. Отсюда вы можете удалить вашу страницу. Учтите, что восстановить её сможет исключительно главный педагог-организатор.
+                        </p>
+                        <h2 id="gettingStartedTitle"></h2>
+                    </section>
                 </div>
                 <div class="row">
                 </div>

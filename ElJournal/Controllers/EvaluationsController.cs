@@ -36,6 +36,10 @@ namespace ElJournal.Controllers
             return View(); 
         }
 
+        public ActionResult ErrorPage()
+        {
+            return View();
+        }
 
 
         // GET: Roles/Create

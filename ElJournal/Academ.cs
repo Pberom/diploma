@@ -7,21 +7,21 @@ using System.Collections.Generic;
 
 namespace ElJournal
 {
-    public partial class Students
+    public partial class Academ
     {
-        public Students()
+        public Academ()
         {
             Commentary = new HashSet<Commentary>();
-            Evaluation = new HashSet<Evaluation>();
         }
 
-        public int Id { get; set; }
-        public int? UserId { get; set; }
-        public int? GroupId { get; set; }
+        public int IdAcadem { get; set; }
+        public string NumberAcadem { get; set; }
+        public string FormControlAcadem { get; set; }
+        public string FioprepodAcadem { get; set; }
+        public DateTime DateAcadem { get; set; }
+        public string TimeAcadem { get; set; }
+        public string TerraAcadem { get; set; }
 
-        public virtual Group Group { get; set; }
-        public virtual UserStudent User { get; set; }
         public virtual ICollection<Commentary> Commentary { get; set; }
-        public virtual ICollection<Evaluation> Evaluation { get; set; }
     }
 }

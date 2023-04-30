@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<ElJournal.UserStudent>
+@using Microsoft.AspNet.Identity
 
 @{
     ViewBag.Title = "Студенты";
@@ -10,25 +11,26 @@
         color: black;
     }
 
-    .try{
-        color:white;
+    .try {
+        color: white;
     }
-
-
 </style>
 
 <body class="d-flex h-100 text-center text-bg-dark">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="mb-auto">
             <div>
-                <h3 class="float-md-start mb-0">Электронный журнал</h3>
+                <h3 class="float-md-start mb-0">Журнал информации</h3>
                 <nav class="nav nav-masthead justify-content-center float-md-end">
                     @Html.Partial("_LoginPartial")
-                    <button type="button" class="btn btn-light m-lg-1 mb-1">
-                        <div class="try">@Html.ActionLink("Домашняя страница", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</div>
-                    </button>
+                    <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Домашняя страница", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</button>
                     <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Информация", "About", "Home", new { area = "" }, new { @class = "nav-link" })</button>
                     <button type="button" class="btn btn-light m-lg-1 mb-1"> @Html.ActionLink("Профиль", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })</button>
+                    @if (User.Identity.GetUserName() == "lulakushka@gmail.com")
+                    {
+                        <button type="button" class="btn btn-light m-lg-1 mb-1"> @Html.ActionLink("Лог действий", "Log", "Home", routeValues: null, htmlAttributes: new { title = "", @class = "nav-link" })</button>
+                    }
+                    else { }
                     <button type="button" class="btn btn-light m-lg-1 mb-1"><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></button>
                 </nav>
             </div>
@@ -37,7 +39,7 @@
         <h2>Студенты</h2>
 
         <p>
-            <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Добавить студента в реестр", "Create", new { area = "" },  new { @class = "nav-link" })</button>
+            <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Добавить студента в реестр", "Create", new { area = "" }, new { @class = "nav-link" })</button>
             <button type="button" class="btn btn-light m-lg-1 mb-1">@Html.ActionLink("Назначить студента в группу", "NewGroup", new { area = "" }, new { @class = "nav-link" })</button>
         </p>
 
@@ -66,12 +68,9 @@
                 color: black;
             }
 
-            .btn btn-dark{
-                color:white;
+            .btn btn-dark {
+                color: white;
             }
-
-
-            
         </style>
         <div class="row">
             <section class="one" aria-labelledby="gettingStartedTitle">
@@ -113,6 +112,5 @@
                 </div>
             </section>
         </div>
-       
     </div>
 </body>

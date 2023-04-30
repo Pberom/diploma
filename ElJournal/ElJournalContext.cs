@@ -19,15 +19,18 @@ namespace ElJournal
         {
         }
 
+        public virtual DbSet<Academ> Academ { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<Commentary> Commentary { get; set; }
         public virtual DbSet<Evaluation> Evaluation { get; set; }
         public virtual DbSet<Group> Group { get; set; }
         public virtual DbSet<MigrationHistory> MigrationHistory { get; set; }
         public virtual DbSet<NameItem> NameItem { get; set; }
+        public virtual DbSet<Practice> Practice { get; set; }
         public virtual DbSet<Professor> Professor { get; set; }
         public virtual DbSet<ProfessorsItem> ProfessorsItem { get; set; }
         public virtual DbSet<Semestr> Semestr { get; set; }
@@ -46,6 +49,47 @@ namespace ElJournal
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Academ>(entity =>
+            {
+                entity.HasKey(e => e.IdAcadem);
+
+                entity.Property(e => e.IdAcadem).HasColumnName("ID_Academ");
+
+                entity.Property(e => e.DateAcadem)
+                    .HasColumnName("Date_Academ")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.FioprepodAcadem)
+                    .IsRequired()
+                    .HasColumnName("FIOPrepod_Academ")
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FormControlAcadem)
+                    .IsRequired()
+                    .HasColumnName("FormControl_Academ")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NumberAcadem)
+                    .IsRequired()
+                    .HasColumnName("Number_Academ")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TerraAcadem)
+                    .IsRequired()
+                    .HasColumnName("Terra_Academ")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TimeAcadem)
+                    .IsRequired()
+                    .HasColumnName("Time_Academ")
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<AspNetRoles>(entity =>
             {
                 entity.HasIndex(e => e.Name)
@@ -142,6 +186,39 @@ namespace ElJournal
                     .HasConstraintName("FK_AspNetUsers_Visitor");
             });
 
+            modelBuilder.Entity<Commentary>(entity =>
+            {
+                entity.HasKey(e => e.IdComm);
+
+                entity.Property(e => e.IdComm).HasColumnName("ID_Comm");
+
+                entity.Property(e => e.AcademId).HasColumnName("Academ_ID");
+
+                entity.Property(e => e.Commentary1)
+                    .HasColumnName("Commentary")
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PracticeId).HasColumnName("Practice_ID");
+
+                entity.Property(e => e.StudentsDannId).HasColumnName("Students_Dann_ID");
+
+                entity.HasOne(d => d.Academ)
+                    .WithMany(p => p.Commentary)
+                    .HasForeignKey(d => d.AcademId)
+                    .HasConstraintName("FK_Commentary_Academ");
+
+                entity.HasOne(d => d.Practice)
+                    .WithMany(p => p.Commentary)
+                    .HasForeignKey(d => d.PracticeId)
+                    .HasConstraintName("FK_Commentary_Practice");
+
+                entity.HasOne(d => d.StudentsDann)
+                    .WithMany(p => p.Commentary)
+                    .HasForeignKey(d => d.StudentsDannId)
+                    .HasConstraintName("FK_Commentary_Students");
+            });
+
             modelBuilder.Entity<Evaluation>(entity =>
             {
                 entity.Property(e => e.CodeProfessorItemId).HasColumnName("CodeProfessorItem_ID");
@@ -218,6 +295,37 @@ namespace ElJournal
                     .IsRequired()
                     .HasColumnName("Name_Item")
                     .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Practice>(entity =>
+            {
+                entity.HasKey(e => e.IdPractice);
+
+                entity.Property(e => e.IdPractice).HasColumnName("ID_Practice");
+
+                entity.Property(e => e.DatePlacePractice)
+                    .IsRequired()
+                    .HasColumnName("DatePlace_Practice")
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FioprepodPractic)
+                    .IsRequired()
+                    .HasColumnName("FIOPrepod_Practic")
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NamePractice)
+                    .IsRequired()
+                    .HasColumnName("Name_Practice")
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NumberPractice)
+                    .IsRequired()
+                    .HasColumnName("Number_Practice")
+                    .HasMaxLength(50)
                     .IsUnicode(false);
             });
 

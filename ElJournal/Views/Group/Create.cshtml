@@ -28,7 +28,7 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
                     @*@Html.LabelFor(model => model.CodeGroup, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                    <p>Наименование группы</p>
+                    <p>Наименование группы (обязательно к заполнению)</p>
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.CodeGroup, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.CodeGroup, "", new { @class = "text-danger" })
@@ -37,7 +37,7 @@
 
                 <div class="form-group">
                     @*@Html.LabelFor(model => model.NameGroup, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                    <p>Наименование профессии</p>
+                    <p>Наименование профессии (обязательно к заполнению)</p>
                     <div class="col col-md-10">
                         @Html.EditorFor(model => model.NameGroup, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.NameGroup, "", new { @class = "text-danger" })
